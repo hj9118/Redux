@@ -1,18 +1,31 @@
 import { createStore } from 'redux';
-//store 데이터를 넣을 state
 
-const plus = document.getElementById('add');
+const add = document.getElementById('add');
 const minus = document.getElementById('minus');
 const number = document.querySelector('span');
 
-const reducer = (count = 0) => {
-  // 이 안에 들어오는 것이 데이터가 될 것
-  
-  // 이게 return으로 수행할 수 있는 방법은? action
-  count++;
-  count--;
+const reducer = (count = 0, action) => {
+
+  if (action.type === 'ADD') {
+    return count + 1;
+  } else if (action.type === 'MINUS') {
+    return count - 1;
+  } else {
+    return count;
+  }
 };
 const store = createStore(reducer);
 
-// let count = 0;
-// 유일하게 데이터가 변하는 지점, state 역할
+const onChange = () => {
+  number.innerText = store.getState(); // 숫자 카운드 변화를 감지
+}
+store.subscribe(onChange)
+
+const handleAdd = () => {
+  store.dispatch({ type: 'ADD' });
+};
+
+add.addEventListener('click', handleAdd);
+minus.addEventListener('click', () => store.dispatch({ type: 'MINUS' }));
+
+// subscribe : store 안의 변화를 알게 해줌
