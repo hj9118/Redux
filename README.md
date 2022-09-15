@@ -1,2 +1,1 @@
-# Redux
-Learning Redux
+# Learning Redux
