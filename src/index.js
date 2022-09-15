@@ -1,27 +1,18 @@
+import { createStore } from 'redux';
+//store 데이터를 넣을 state
+
 const plus = document.getElementById('add');
 const minus = document.getElementById('minus');
 const number = document.querySelector('span');
 
-let count = 0; // 숫자 변수화
-
-number.innerText = count;
-
-const updateText = () => {
-  number.innerText = count; // 숫자 갱신용 함수
+const reducer = (count = 0) => {
+  // 이 안에 들어오는 것이 데이터가 될 것
+  
+  // 이게 return으로 수행할 수 있는 방법은? action
+  count++;
+  count--;
 };
+const store = createStore(reducer);
 
-
-// 이벤트에 대한 함수 정의 
-const handleAdd = () => {
-  count += 1;
-  updateText(); // 숫자 변화. 없을 경우 실행은 되나 변화하지 않음.
-};
-
-const handleMinus = () => {
-  count -= 1;
-  updateText();
-};
-
-// 클릭시 이벤트 발생
-plus.addEventListener('click', handleAdd); 
-minus.addEventListener('click', handleMinus);
+// let count = 0;
+// 유일하게 데이터가 변하는 지점, state 역할
