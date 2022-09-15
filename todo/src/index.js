@@ -28,10 +28,11 @@ const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
       // 스프레드 연산자를 통해 배열의 얕은 복사로 원본값만 참조 결국 두가지 값을 모두 가지는 형태
+      // id값이 안맞으면 배열에 남아있고 결과를 새로운 배열로 반환
       return [{ text: action.text, id: Date.now() }, ...state];
     case DELETE_TODO:
-      // id값이 안맞으면 배열에 남아있고 결과를 새로운 배열로 반환
-      return state.filter(todo => todo.id !== action.id);
+      const cleaned = state.filter(todo => todo.id !== action.id);
+      return cleaned;
     default:
       return state;
   }
